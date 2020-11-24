@@ -1,4 +1,4 @@
-# Simple api developed using springboot, docker and docker compose
+# Simple Springboot API
 
 # Tecnologias
 
