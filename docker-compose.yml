@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+
+        postgresql: 
+          image: postgres
+          ports:
+                  - "5432:5432"
+          environment:
+                  POSTGRES_DB: pismo
+                  POSTGRES_USER: postgres
+                  POSTGRES_PASSWORD: docker
+          networks:
+                  - postgres-network
+
+        pismo-api:
+          image: pismo/pismo-api
+          container_name: pismo-api
+          restart: always
+          ports:
+                - 8080:8080
+          depends_on:
+                - postgresql 
+          networks:
+                  - pismo-api-network
+                  - postgres-network
+networks:
+        pismo-api-network:
+                driver: bridge
+        postgres-network:
+                driver: bridge
