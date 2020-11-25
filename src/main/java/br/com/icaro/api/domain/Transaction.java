@@ -11,17 +11,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "transactions")
 @Data
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
 public class Transaction {
 	
 	@Id
@@ -41,4 +37,11 @@ public class Transaction {
 	@ManyToOne
 	@JoinColumn(name = "operation_type_id")
 	private OperationType operationType;
+	
+	public Transaction(Double amount, Account account, OperationType operationType) {
+		this.account = account;
+		this.operationType = operationType;
+		this.eventDate = LocalDateTime.now();
+		this.amount = operationType.isPayment() ? amount : amount * -1.0d;
+	}
 }

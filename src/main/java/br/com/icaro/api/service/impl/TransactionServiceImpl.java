@@ -1,7 +1,5 @@
 package br.com.icaro.api.service.impl;
 
-import java.time.LocalDateTime;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +14,7 @@ import br.com.icaro.api.service.TransactionService;
 @Service
 public class TransactionServiceImpl implements TransactionService {
 	
-	@Autowired
+	@Autowired 
 	private AccountService accountService;
 	
 	@Autowired
@@ -31,12 +29,7 @@ public class TransactionServiceImpl implements TransactionService {
 		var account = accountService.getAccountById(accountId);
 		var operationType = operationTypeService.getOperationTypeById(operationTypeId);
 		
-		var transaction = Transaction.builder()
-				.account(account)
-				.operationType(operationType)
-				.amount(amount)
-				.eventDate(LocalDateTime.now())
-				.build();
+		var transaction = new Transaction(amount, account, operationType);
 		
 		return transactionRepository.save(transaction);
 	}
