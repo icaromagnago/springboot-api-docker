@@ -7,5 +7,7 @@ public interface AccountService {
 	
 	Account createAccount(String documentNumber);
 	
+	Account updateAccount(Account account);
+	
 	Account getAccountById(Integer accountId) throws AccountNotFoundException;
 }

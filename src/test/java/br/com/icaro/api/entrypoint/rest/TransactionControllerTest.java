@@ -36,7 +36,7 @@ class TransactionControllerTest {
 				+ "\"amount\": \"100.0\""
 				+ "}";
 		
-		var account = new Account(1, "123456789123");
+		var account = new Account(1, "123456789123", 0.0);
 		var operationType = new OperationType(4, "");
 		var transaction = new Transaction(100.0d, account, operationType);
 		transaction.setId(1);

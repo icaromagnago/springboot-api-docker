@@ -28,4 +28,9 @@ public class AccountServiceImpl implements AccountService {
 						String.format("Account with id %s not found", accountId)));
 	}
 
+	@Override
+	public Account updateAccount(Account account) {
+		return accountRepository.save(account);
+	}
+
 }

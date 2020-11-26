@@ -32,7 +32,7 @@ class AccountControllerTest {
 				+ "\"document_number\": \"11998876543\""
 				+ "}";
 		
-		var account = new Account(1, "11998876543");
+		var account = new Account(1, "11998876543", 0.0);
 		when(accountService.createAccount(account.getDocumentNumber())).thenReturn(account);
 		
 		mockMvc
@@ -60,7 +60,7 @@ class AccountControllerTest {
 	
 	@Test
 	void whenGetAccount_thenReturnsOk200() throws Exception {		
-		var account = new Account(1, "11998876543");
+		var account = new Account(1, "11998876543", 0.0);
 		when(accountService.getAccountById(1)).thenReturn(account);
 		
 		mockMvc

@@ -40,7 +40,9 @@ public class AccountController {
 				.buildAndExpand(account.getId())
 				.toUri();
 		
-		var accountDto = new CreatedAccountDto(account.getId(), account.getDocumentNumber());
+		var accountDto = new CreatedAccountDto(account.getId(), 
+				account.getDocumentNumber(), 
+				account.getAvailableCreditLimit());
 		return ResponseEntity.created(uri).body(accountDto);
 	}
 	
@@ -52,7 +54,9 @@ public class AccountController {
 	@GetMapping("/{accountId}")
 	public ResponseEntity<CreatedAccountDto> getAccount(@PathVariable Integer accountId) throws AccountNotFoundException {
 		var account = accountService.getAccountById(accountId);
-		var accountDto = new CreatedAccountDto(account.getId(), account.getDocumentNumber());
+		var accountDto = new CreatedAccountDto(account.getId(), 
+				account.getDocumentNumber(), 
+				account.getAvailableCreditLimit());
 		
 		return ResponseEntity.ok(accountDto);
 	}

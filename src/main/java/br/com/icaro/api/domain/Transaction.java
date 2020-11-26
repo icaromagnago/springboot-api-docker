@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.com.icaro.api.domain.exception.NoLimitException;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -38,10 +39,18 @@ public class Transaction {
 	@JoinColumn(name = "operation_type_id")
 	private OperationType operationType;
 	
-	public Transaction(Double amount, Account account, OperationType operationType) {
+	public Transaction(Double amount, Account account, OperationType operationType) throws NoLimitException {
 		this.account = account;
 		this.operationType = operationType;
 		this.eventDate = LocalDateTime.now();
-		this.amount = operationType.isPayment() ? amount : amount * -1.0d;
+		
+		boolean isPayment = operationType.isPayment();
+		if (isPayment) {
+			account.addLimit(amount);
+			this.amount = amount;
+		} else {
+			account.debit(amount);
+			this.amount = amount * -1.0d; 
+		}
 	}
 }

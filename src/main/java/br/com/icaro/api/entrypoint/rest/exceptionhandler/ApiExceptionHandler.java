@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 
 import br.com.icaro.api.domain.exception.AccountNotFoundException;
+import br.com.icaro.api.domain.exception.NoLimitException;
 import br.com.icaro.api.domain.exception.OperationTypeNotFoundException;
 
 @ControllerAdvice
@@ -52,5 +53,10 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler( { OperationTypeNotFoundException.class } )
 	public ResponseEntity<Object> handleOperationTypeNotFoundException(OperationTypeNotFoundException ex,  WebRequest request) {
 		return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+	}
+	
+	@ExceptionHandler( { NoLimitException.class } )
+	public ResponseEntity<Object> handleNoLimitException(NoLimitException ex,  WebRequest request) {
+		return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
 	}
 }

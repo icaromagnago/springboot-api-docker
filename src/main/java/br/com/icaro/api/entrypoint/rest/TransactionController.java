@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.icaro.api.domain.exception.AccountNotFoundException;
+import br.com.icaro.api.domain.exception.NoLimitException;
 import br.com.icaro.api.domain.exception.OperationTypeNotFoundException;
 import br.com.icaro.api.entrypoint.rest.dto.CreatedTransactionDto;
 import br.com.icaro.api.entrypoint.rest.dto.TransactionInputDto;
@@ -31,7 +32,7 @@ public class TransactionController {
 	@ApiResponse(code = 201, response = CreatedTransactionDto.class, message = "")
 	@PostMapping
 	public ResponseEntity<CreatedTransactionDto> createTransaction(@Valid @RequestBody TransactionInputDto transactionInput) 
-			throws AccountNotFoundException, OperationTypeNotFoundException {
+			throws AccountNotFoundException, OperationTypeNotFoundException, NoLimitException {
 		
 		var transaction = transactionService.newTransaction(transactionInput.getAccountId(),
 				transactionInput.getOperationTypeId(), 
